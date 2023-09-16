@@ -1,37 +1,36 @@
 #include "sort.h"
-#include <stdbool.h> // Include for bool data type
 
 /**
- * bubble_sort - sorts bubbly
+ * bubble_sort - sorts an array using the bubble sort algorithm
  * @array: array to sort
- * @size: size
+ * @size: size of the array
  */
 void bubble_sort(int *array, size_t size)
 {
-    size_t i, newsize = size;
+    size_t i, j;
     int tmp;
-    bool swap; // Change int to bool for better readability
+    int swapped;
 
     if (array == NULL || size < 2)
         return;
 
-    while (newsize)
+    for (i = 0; i < size - 1; i++)
     {
-        swap = false; // Initialize swap as false
-        for (i = 0; i < newsize - 1; i++)
+        swapped = 0;
+        for (j = 0; j < size - i - 1; j++)
         {
-            if (array[i] > array[i + 1])
+            if (array[j] > array[j + 1])
             {
-                tmp = array[i + 1];
-                array[i + 1] = array[i];
-                array[i] = tmp;
+                /* Swap array[j] and array[j+1] */
+                tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;
                 print_array(array, size);
-                swap = true; // Set swap to true if a swap occurs
+                swapped = 1;
             }
         }
-        newsize--;
-        if (!swap)
+
+        if (swapped == 0)
             break;
     }
 }
-
