@@ -1,19 +1,19 @@
 #include "sort.h"
 
 /**
- * partition - partitions the array
+ * lomuto_partition - Lomuto partition scheme
  * @array: array to take in
  * @start: start of array;
  * @end: end of array
  * @size: full size of array
  * Return: position of pivot
  */
-int partition(int *array, int start, int end, int size)
+int lomuto_partition(int *array, int start, int end, int size)
 {
     int pivot = array[end];
     int i = start - 1;
 
-    for (int j = start; j < end; j++)
+    for (int j = start; j <= end - 1; j++)
     {
         if (array[j] <= pivot)
         {
@@ -28,7 +28,7 @@ int partition(int *array, int start, int end, int size)
         }
     }
 
-    if (i + 1 != end)
+    if (array[i + 1] != array[end])
     {
         int temp = array[i + 1];
         array[i + 1] = array[end];
@@ -50,11 +50,8 @@ void quickSort(int *array, int start, int end, int size)
 {
     if (start < end)
     {
-        int pivot = partition(array, start, end, size);
-
-        printf("first recursive, start [%d] to pivot-1[%d]\n", start, pivot - 1);
+        int pivot = lomuto_partition(array, start, end, size);
         quickSort(array, start, pivot - 1, size);
-        printf("second recursive, pivot+1 [%d] to end [%d]\n", pivot + 1, end);
         quickSort(array, pivot + 1, end, size);
     }
 }
